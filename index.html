@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <base href="./" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Argon 18 Nitrogen Pro — Interactive 3D Museum &amp; Windtunnel Exhibition</title>
+  <meta name="description" content="Ultra-realistic 3D browser rendering and aerodynamic windtunnel simulation of the Argon 18 Nitrogen Pro SRAM RED AXS with ATTEN x Scope Artech 6.A+ wheels." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <!-- 3D WebGL Canvas Container -->
+  <div id="canvas-container" aria-label="Interactive 3D Argon 18 Nitrogen Pro"></div>
+
+  <!-- Subtle Loading Curtain -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-inner">
+      <div class="loading-molecular">
+        <svg viewBox="0 0 80 80" width="56" height="56" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="40" y1="16" x2="40" y2="38" />
+            <line x1="40" y1="38" x2="22" y2="52" />
+            <line x1="40" y1="38" x2="58" y2="48" />
+            <circle cx="40" cy="16" r="6" fill="#7be3f6" stroke="none" />
+            <circle cx="40" cy="38" r="7.5" fill="#e8d2a6" stroke="none" />
+            <circle cx="22" cy="52" r="6" fill="#d994b8" stroke="none" />
+            <circle cx="58" cy="48" r="6.5" fill="#7be3f6" stroke="none" />
+          </g>
+        </svg>
+      </div>
+      <div class="loading-brand">ARGON 18 // EXPOSITION</div>
+      <div class="loading-title">NITROGEN PRO</div>
+      <div class="loading-bar-track">
+        <div id="loading-bar-fill" class="loading-bar-fill"></div>
+      </div>
+      <div id="loading-status" class="loading-status">Sculpting Kamm-tail carbon layup &amp; Scope Aeroscale rims…</div>
+    </div>
+  </div>
+
+  <!-- Top Exhibition Header -->
+  <header id="exhibition-header" class="exhibition-header">
+    <div class="brand-lockup">
+      <div class="brand-emblem" title="Argon 18 Molecular Emblem">
+        <svg viewBox="0 0 44 44" width="28" height="28" aria-hidden="true">
+          <g fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.8">
+            <line x1="22" y1="9" x2="22" y2="22" />
+            <line x1="22" y1="22" x2="11" y2="31" />
+            <line x1="22" y1="22" x2="33" y2="28" />
+          </g>
+          <circle cx="22" cy="9" r="3.8" fill="#8ce7f7" />
+          <circle cx="22" cy="22" r="4.6" fill="#f3dfc1" />
+          <circle cx="11" cy="31" r="3.8" fill="#e5a4cb" />
+          <circle cx="33" cy="28" r="4.0" fill="#8ce7f7" />
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-kicker">ARGON 18 &bull; MONTRÉAL // ARCHIVE N&deg; 383A-1E</div>
+        <h1 class="brand-headline">NITROGEN PRO <span class="headline-sub">SRAM RED AXS</span></h1>
+      </div>
+    </div>
+
+    <!-- Quick Camera Viewpoints -->
+    <nav class="camera-nav" aria-label="Camera viewpoints">
+      <button id="cam-hero" class="cam-btn active" data-cam="hero">3/4 Gallery</button>
+      <button id="cam-profile" class="cam-btn" data-cam="profile">Pure Profile</button>
+      <button id="cam-cockpit" class="cam-btn" data-cam="cockpit">ATTEN Cockpit</button>
+      <button id="cam-drivetrain" class="cam-btn" data-cam="drivetrain">SRAM RED AXS</button>
+      <button id="cam-wheel" class="cam-btn" data-cam="wheel">Scope Artech 6.A+</button>
+      <button id="cam-rear" class="cam-btn" data-cam="rear">Dropped Stays</button>
+    </nav>
+
+    <!-- Right Header Actions -->
+    <div class="header-actions">
+      <button id="toggle-hotspots-btn" class="action-chip active" title="Toggle interactive engineering annotations">
+        <span class="chip-dot"></span>
+        <span>Annotations</span>
+      </button>
+      <button id="toggle-autorotate-btn" class="action-chip" title="Toggle museum turntable rotation">
+        <span>Turntable</span>
+      </button>
+      <button id="toggle-ui-btn" class="action-chip icon-only" title="Toggle Pure Museum View (H)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Left Floating Telemetry & Spec Plaque -->
+  <aside id="museum-plaque" class="museum-plaque">
+    <div class="plaque-header">
+      <span class="plaque-index">SPECIFICATION // SIZE M (54–56)</span>
+      <span class="plaque-finish">AURORA CHARCOAL</span>
+    </div>
+
+    <div class="plaque-metrics">
+      <div class="metric-item">
+        <span class="metric-label">COMPLETE WEIGHT</span>
+        <span class="metric-value">6.88 <small>kg</small></span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label">WHEELSET</span>
+        <span class="metric-value">65 <small>mm Aeroscale</small></span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-label">DRIVETRAIN</span>
+        <span class="metric-value">48/35 <small>&times; 10-33T</small></span>
+      </div>
+    </div>
+
+    <!-- Active Hotspot Inspection Detail Card -->
+    <div id="hotspot-detail-card" class="hotspot-detail-card">
+      <div class="hotspot-card-top">
+        <span id="hotspot-number" class="hotspot-number">01</span>
+        <span id="hotspot-tag" class="hotspot-tag">AERO ARCHITECTURE</span>
+        <button id="hotspot-close-btn" class="hotspot-close" aria-label="Close detail">&times;</button>
+      </div>
+      <h2 id="hotspot-title" class="hotspot-title">Aurora Charcoal &amp; Holographic Foil</h2>
+      <p id="hotspot-desc" class="hotspot-desc">
+        Dual-finish Pro Level carbon layup pairing deep piano-black clearcoat with metallic micro-flake Aurora Charcoal and thin-film iridescent ARGON 18 speed graphics.
+      </p>
+    </div>
+
+    <!-- Live Aero Telemetry Panel (visible when Windtunnel is active) -->
+    <div id="aero-telemetry-panel" class="aero-telemetry-panel hidden">
+      <div class="telemetry-header">
+        <span class="telemetry-live-indicator"></span>
+        <span>CFD WINDTUNNEL TELEMETRY</span>
+      </div>
+      <div class="telemetry-grid">
+        <div class="tele-cell">
+          <span class="tele-label">AIRSPEED</span>
+          <span id="tele-speed" class="tele-val">45.0 <small>km/h</small></span>
+        </div>
+        <div class="tele-cell">
+          <span class="tele-label">YAW ANGLE</span>
+          <span id="tele-yaw" class="tele-val">0.0&deg;</span>
+        </div>
+        <div class="tele-cell">
+          <span class="tele-label">SYSTEM CdA</span>
+          <span id="tele-cda" class="tele-val">0.196 <small>m&sup2;</small></span>
+        </div>
+        <div class="tele-cell">
+          <span class="tele-label">AERO GAIN</span>
+          <span id="tele-watts" class="tele-val highlight">-14.8 <small>W</small></span>
+        </div>
+      </div>
+      <div class="cfd-legend">
+        <span class="legend-label">FLOW VELOCITY / PRESSURE</span>
+        <div class="legend-gradient"></div>
+        <div class="legend-stops">
+          <span>Stagnation (High P)</span>
+          <span>Laminar</span>
+          <span>Venturi Peak</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 3D Hotspot Overlay Container (Projected from 3D world coordinates) -->
+  <div id="hotspots-layer" class="hotspots-layer" aria-live="polite"></div>
+
+  <!-- Bottom Control Dock: Lighting Atmosphere + Windtunnel Controls + Configuration -->
+  <section id="control-dock" class="control-dock" aria-label="Exhibition and Windtunnel Controls">
+    <!-- 1. Lighting Atmosphere Selector -->
+    <div class="dock-module lighting-module">
+      <div class="module-header">
+        <span class="module-title">ATMOSPHERE &amp; LIGHT</span>
+        <span id="active-light-label" class="module-subtitle">Evening Sun &bull; 2850K Sparkle</span>
+      </div>
+      <div class="light-presets" role="group" aria-label="Lighting presets">
+        <button id="light-museum" class="light-btn" data-light="museum" title="Dramatic Louvre-style overhead gallery spotlights">
+          <span class="light-swatch swatch-museum"></span>
+          <span>Museum</span>
+        </button>
+        <button id="light-evening" class="light-btn active" data-light="evening" title="Low-angle golden sunset beam that ignites the Aurora Charcoal metallic sparkle">
+          <span class="light-swatch swatch-evening"></span>
+          <span>Evening Sun</span>
+        </button>
+        <button id="light-morning" class="light-btn" data-light="morning" title="Crisp high-altitude morning sunlight with cool sky fill">
+          <span class="light-swatch swatch-morning"></span>
+          <span>Morning Sun</span>
+        </button>
+        <button id="light-aerolab" class="light-btn" data-light="aerolab" title="Dark CFD testing bay with cool technical rim illumination">
+          <span class="light-swatch swatch-aerolab"></span>
+          <span>Aero Lab</span>
+        </button>
+        <button id="light-studio" class="light-btn" data-light="studio" title="Pure white architectural cyclorama">
+          <span class="light-swatch swatch-studio"></span>
+          <span>Cyclorama</span>
+        </button>
+      </div>
+      <div class="slider-row">
+        <label for="sun-azimuth-slider" class="slider-label">
+          <span>Light Orbit</span>
+          <span id="sun-azimuth-val" class="slider-val">38&deg;</span>
+        </label>
+        <input id="sun-azimuth-slider" type="range" min="-180" max="180" value="38" step="1" />
+      </div>
+      <div class="slider-row">
+        <label for="sparkle-slider" class="slider-label">
+          <span>Metallic Flake Sparkle</span>
+          <span id="sparkle-val" class="slider-val">85%</span>
+        </label>
+        <input id="sparkle-slider" type="range" min="0" max="150" value="85" step="1" />
+      </div>
+    </div>
+
+    <div class="dock-divider"></div>
+
+    <!-- 2. Aerodynamic Windtunnel Module -->
+    <div class="dock-module windtunnel-module">
+      <div class="module-header">
+        <span class="module-title">AERODYNAMIC WINDTUNNEL</span>
+        <button id="windtunnel-toggle-btn" class="windtunnel-master-btn" aria-pressed="false">
+          <span class="wt-indicator"></span>
+          <span id="windtunnel-btn-text">ACTIVATE WINDTUNNEL</span>
+        </button>
+      </div>
+
+      <div id="windtunnel-controls" class="windtunnel-subcontrols">
+        <div class="wt-sliders">
+          <div class="slider-row">
+            <label for="wind-speed-slider" class="slider-label">
+              <span>Wind Velocity</span>
+              <span id="wind-speed-val" class="slider-val">45 km/h</span>
+            </label>
+            <input id="wind-speed-slider" type="range" min="20" max="70" value="45" step="1" />
+          </div>
+          <div class="slider-row">
+            <label for="wind-yaw-slider" class="slider-label">
+              <span>Crosswind Yaw</span>
+              <span id="wind-yaw-val" class="slider-val">0.0&deg;</span>
+            </label>
+            <input id="wind-yaw-slider" type="range" min="-15" max="15" value="0" step="0.5" />
+          </div>
+          <div class="slider-row">
+            <label for="smoke-elevation-slider" class="slider-label">
+              <span>Smoke Rake Focus</span>
+              <span id="smoke-elevation-val" class="slider-val">Full Field</span>
+            </label>
+            <input id="smoke-elevation-slider" type="range" min="0" max="100" value="0" step="1" />
+          </div>
+        </div>
+
+        <div class="wt-modes" role="group" aria-label="Flow visualization style">
+          <button id="flow-mode-cfd" class="sub-pill active" data-flow="cfd">CFD Pressure</button>
+          <button id="flow-mode-smoke" class="sub-pill" data-flow="smoke">Laminar Smoke</button>
+          <button id="flow-mode-vortex" class="sub-pill" data-flow="vortex">Vortex Wake</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dock-divider"></div>
+
+    <!-- 3. Mechanical & Trim Details -->
+    <div class="dock-module trim-module">
+      <div class="module-header">
+        <span class="module-title">CONFIGURATION</span>
+        <span class="module-subtitle">Interactive Mechanics</span>
+      </div>
+      <div class="trim-toggles">
+        <div class="slider-row trim-slider-row">
+          <label for="wheel-speed-slider" class="slider-label">
+            <span>Wheel Spin Speed</span>
+            <span id="wheel-speed-val" class="slider-val">18 km/h</span>
+          </label>
+          <input id="wheel-speed-slider" type="range" min="0" max="75" value="18" step="1" title="Adjust wheel &amp; drivetrain rotation speed (0 - 75 km/h)" />
+        </div>
+        <button id="toggle-bottles-btn" class="trim-btn" data-state="cages" title="Cycle ATTEN integrated aero cages &amp; aero bidons">
+          <span class="trim-label">ATTEN Hydration</span>
+          <span id="bottles-state-text" class="trim-state">Aero Cages</span>
+        </button>
+        <button id="toggle-drivetrain-spin-btn" class="trim-btn" title="Toggle wheel &amp; drivetrain rotation on/off">
+          <span class="trim-label">Drivetrain Motion</span>
+          <span id="drivetrain-state-text" class="trim-state">Active (18 km/h)</span>
+        </button>
+        <button id="steer-fork-btn" class="trim-btn" title="Toggle slight showroom steering angle on the ATTEN cockpit &amp; fork">
+          <span class="trim-label">Cockpit Pose</span>
+          <span id="steer-state-text" class="trim-state">Straight (0&deg;)</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subtle Keyboard / Interaction Hint -->
+  <div class="interaction-hint">
+    <span>Drag to Orbit 360&deg;</span>
+    <span>&bull;</span>
+    <span>Scroll to Zoom Micro-Details</span>
+    <span>&bull;</span>
+    <span>Right-Click to Pan</span>
+    <span>&bull;</span>
+    <span>Press <kbd>W</kbd> for Windtunnel</span>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
